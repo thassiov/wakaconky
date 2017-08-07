@@ -56,3 +56,24 @@ def makeNewAccessToken():
     code = input('Enter code from url: ')
     return code
 
+def makeNewConfigFile(token):
+    """creates a new config file with the APIs access token
+
+    :token: string
+    :returns: string
+
+    """
+    configFile = os.path.expanduser('~/.wakaconky')
+    try:
+        f = open(configFile, 'w')
+    except Exception as e:
+        raise e
+
+    f.write('access_token = ' + token)
+    f.close()
+    return token
+
+token = getAccessTokenFromFile()
+if token == '':
+    newToken = makeNewAccessToken()
+    token = makeNewConfigFile(newToken)
