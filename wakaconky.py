@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 
 import os
+import datetime
+import requests
 import hashlib
 import sys
+import base64
 from rauth import OAuth2Service
 
 def getAccessTokenFromFile():
@@ -44,7 +47,7 @@ def makeNewAccessToken():
 
     redirect_uri = 'https://wakatime.com/oauth/test'
     state = hashlib.sha1(os.urandom(40)).hexdigest()
-    params = {'scope': 'email,read_stats',
+    params = {'scope': 'email,read_stats,read_logged_time',
               'response_type': 'code',
               'state': state,
               'redirect_uri': redirect_uri}
@@ -73,7 +76,25 @@ def makeNewConfigFile(token):
     f.close()
     return token
 
+def getSummary(token):
+    """get the user's summary from wakatime
+    :returns: json
+
+    """
+    today = datetime.datetime.now()
+    startTime = today.strftime('%Y-%m-%d')
+    endTime = datetime.datetime.now() + datetime.timedelta(days=1)
+    endTime = endTime.strftime('%Y-%m-%d')
+    params = {'start':startTime, 'end':endTime, 'api_key':token} 
+
+    headers = {'Accept':'application/x-www-form-urlencoded'}
+    api_route = 'https://wakatime.com/api/v1/users/current/summaries'
+    r = requests.get(api_route, headers=headers, params=params)
+    return r.json()
+
 token = getAccessTokenFromFile()
 if token == '':
     newToken = makeNewAccessToken()
     token = makeNewConfigFile(newToken)
+
+print(getSummary(token))
