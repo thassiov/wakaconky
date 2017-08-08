@@ -4,6 +4,7 @@ import os
 import json
 import datetime
 import requests
+import pprint
 
 def getAccessTokenFromFile():
     """gets the api's access token from ~/.wakaconky 
@@ -40,10 +41,28 @@ def getSummary(token):
     r = requests.get(api_route, headers=headers, params=params)
     return r.json()
 
+def storeWakatimeData(data):
+    """stores writes the data in '~/wakaconky' so conky can read it
+    :returns: TODO
+
+    """
+    dataFile = os.path.expanduser('~/.wakaconky.data')
+    try:
+        f = open(dataFile, 'w')
+    except Exception as e:
+        raise e
+
+    data = getSummary(token)
+    pprint.pprint(data, indent=2)
+    f.write(data["data"][0]["grand_total"]["text"]) # total
+    minutes = int(data["data"][0]["grand_total"]["total_seconds"])/60
+    percent = minutes/(480/100)
+    f.write('\n')
+    f.write(str(percent))
+    f.close()
+
 token = getAccessTokenFromFile()
 if token == '':
     print('api key needed!')
 else:
-    data = getSummary(token)
-    print(data["data"][0]["grand_total"]["text"])
-
+    storeWakatimeData(getSummary(token))
