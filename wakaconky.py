@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import os
+import json
 import datetime
 import requests
 
@@ -32,9 +33,7 @@ def getSummary(token):
     """
     today = datetime.datetime.now()
     startTime = today.strftime('%Y-%m-%d')
-    endTime = datetime.datetime.now() + datetime.timedelta(days=1)
-    endTime = endTime.strftime('%Y-%m-%d')
-    params = {'start':startTime, 'end':endTime, 'api_key':token} 
+    params = {'start':startTime, 'end':startTime, 'api_key':token} 
 
     headers = {'Accept':'application/x-www-form-urlencoded'}
     api_route = 'https://wakatime.com/api/v1/users/current/summaries'
@@ -45,4 +44,6 @@ token = getAccessTokenFromFile()
 if token == '':
     print('api key needed!')
 else:
-    print(getSummary(token))
+    data = getSummary(token)
+    print(data["data"][0]["grand_total"]["text"])
+
