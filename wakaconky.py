@@ -3,17 +3,13 @@
 import os
 import datetime
 import requests
-import hashlib
-import sys
-import base64
-from rauth import OAuth2Service
 
 def getAccessTokenFromFile():
     """gets the api's access token from ~/.wakaconky 
     :returns: string
 
     """
-    configFile = os.path.expanduser('~/.wakaconky')
+    configFile = os.path.expanduser('~/.wakatime.cfg')
 
     try:
         c = open(configFile)
@@ -24,57 +20,10 @@ def getAccessTokenFromFile():
             raise e
 
     for line in c:
-        if 'access_token' in line :
+        if 'api_key' in line :
             token = line.split(' ')[2]
             return token
     return ''
-
-def makeNewAccessToken():
-    """yeah. code from [https://wakatime.com/developers#authentication]
-    :returns: string
-
-    """
-    client_id = input('Enter your App Id: ')
-    secret = input('Enter your App Secret: ')
-
-    service = OAuth2Service(
-        client_id=client_id, # your App ID from https://wakatime.com/apps
-        client_secret=secret, # your App Secret from https://wakatime.com/apps
-        name='wakatime',
-        authorize_url='https://wakatime.com/oauth/authorize',
-        access_token_url='https://wakatime.com/oauth/token',
-        base_url='https://wakatime.com/api/v1/')
-
-    redirect_uri = 'https://wakatime.com/oauth/test'
-    state = hashlib.sha1(os.urandom(40)).hexdigest()
-    params = {'scope': 'email,read_stats,read_logged_time',
-              'response_type': 'code',
-              'state': state,
-              'redirect_uri': redirect_uri}
-
-    url = service.get_authorize_url(**params)
-
-    print('**** Visit {url} in your browser. ****'.format(url=url))
-    print('**** After clicking Authorize, paste code here and press Enter ****')
-    code = input('Enter code from url: ')
-    return code
-
-def makeNewConfigFile(token):
-    """creates a new config file with the APIs access token
-
-    :token: string
-    :returns: string
-
-    """
-    configFile = os.path.expanduser('~/.wakaconky')
-    try:
-        f = open(configFile, 'w')
-    except Exception as e:
-        raise e
-
-    f.write('access_token = ' + token)
-    f.close()
-    return token
 
 def getSummary(token):
     """get the user's summary from wakatime
@@ -94,7 +43,6 @@ def getSummary(token):
 
 token = getAccessTokenFromFile()
 if token == '':
-    newToken = makeNewAccessToken()
-    token = makeNewConfigFile(newToken)
-
-print(getSummary(token))
+    print('api key needed!')
+else:
+    print(getSummary(token))
