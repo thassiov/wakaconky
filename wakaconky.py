@@ -57,6 +57,7 @@ def storeWakatimeData(data):
     minutes = int(data["data"][0]["grand_total"]["total_seconds"])/60
     percent = minutes/(480/100)
     f.write('\n')
+    percent = "{0:.2f}".format(percent)
     f.write(str(percent))
     f.close()
 

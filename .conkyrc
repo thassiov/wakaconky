@@ -38,7 +38,7 @@ conky.text = [[
     ${execi 20 python .wakaconky/wakaconky.py}
     ${color #ffffff}Today's code quota: ${execi 2 cat ~/.wakaconky.data | sed -n 1p } | 8 hr
 
-    0% ${color #00FF00}${execibar 2 cat ~/.wakaconky.data | sed -n 2p } ${color #ffffff}100%
+    ${color #00FF00}${execibar 2 cat ~/.wakaconky.data | sed -n 2p } ${color #ffffff} ${execi 2 cat ~/.wakaconky.data | sed -n 2p }% | 100%
 
     _________________________________________________
  ]]
