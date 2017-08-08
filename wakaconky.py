@@ -53,7 +53,6 @@ def storeWakatimeData(data):
         raise e
 
     data = getSummary(token)
-    pprint.pprint(data, indent=2)
     f.write(data["data"][0]["grand_total"]["text"]) # total
     minutes = int(data["data"][0]["grand_total"]["total_seconds"])/60
     percent = minutes/(480/100)

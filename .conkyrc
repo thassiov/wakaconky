@@ -6,7 +6,7 @@ cpu_avg_samples = 2,
 default_color = 'white',
 default_outline_color = 'white',
 default_shade_color = 'white',
-default_bar_width = 200,
+default_bar_width = 250,
 default_bar_height = 8,
 draw_borders = false,
 draw_graph_borders = true,
@@ -35,6 +35,11 @@ own_window_transparent = true
 }
 
 conky.text = [[
-    ${color #ffffff}Today's code quota: ${execi 30 python wakaconky/wakaconky.py}
+    ${execi 20 python .wakaconky/wakaconky.py}
+    ${color #ffffff}Today's code quota: ${execi 2 cat ~/.wakaconky.data | sed -n 1p } | 8 hr
+
+    0% ${color #00FF00}${execibar 2 cat ~/.wakaconky.data | sed -n 2p } ${color #ffffff}100%
+
+    _________________________________________________
  ]]
 
