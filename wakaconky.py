@@ -110,7 +110,6 @@ def appendToWakaconkyData(toAppend):
         raise e
 
     for dataChunk in toAppend:
-        print(dataChunk)
         f.write(dataChunk)
         f.write('\n')
     f.close()
