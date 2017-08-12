@@ -87,8 +87,7 @@ def getWakatimeData(token):
     weekProj += ' - ' + last7days["data"]["projects"][0]["text"]
     toBeStored.append("project_of_the_week = " + weekProj)
 
-    for item in toBeStored:
-        appendToWakaconkyData(item)
+    appendToWakaconkyData(toBeStored)
 
 def wipeOldData():
     """erases wakaconky.data's content
@@ -109,8 +108,11 @@ def appendToWakaconkyData(toAppend):
         f = open(dataFile, 'a')
     except Exception as e:
         raise e
+
     for dataChunk in toAppend:
+        print(dataChunk)
         f.write(dataChunk)
+        f.write('\n')
     f.close()
     return True
 
