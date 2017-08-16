@@ -21,7 +21,7 @@ def getGitlabIssues(token):
     :returns: TODO
 
     """
-    url = 'https://gitlab.com/api/v4/issues'
+    url = 'https://gitlab.com/api/v4/issues?state=opened'
     params = {'private_token': token}
     r = requests.get(url, params=params)
     return r.json()
