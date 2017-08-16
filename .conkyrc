@@ -36,6 +36,8 @@ own_window_transparent = true
 
 conky.text = [[
     ${execi 20 python .wakaconky/wakaconky.py}
+    ${color #ffffff}${alignc}${execi 2 grep -w 'username' ~/.wakaconky.data | cut -d '=' -f 2 }
+
     ${color #ffffff}Today's code quota: ${execi 2 grep -w 'time_spent_today' ~/.wakaconky.data | cut -d '=' -f 2 } | 8 hr
 
     ${color #00FF00}${execibar 2 grep -w 'time_spent_today_as_percentage' ~/.wakaconky.data | cut -d '=' -f 2} ${color #ffffff} ${execi 2 grep -w 'time_spent_today_as_percentage' ~/.wakaconky.data | cut -d '=' -f 2}% | 100%

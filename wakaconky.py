@@ -63,7 +63,6 @@ def callWakatimeAPI(params, route):
     return r.json()
 
 def getWakatimeData(token):
-
     toBeStored = []
 
     summary = getSummary(token)
@@ -86,6 +85,9 @@ def getWakatimeData(token):
     weekProj = last7days["data"]["projects"][0]["name"]
     weekProj += ' - ' + last7days["data"]["projects"][0]["text"]
     toBeStored.append("project_of_the_week = " + weekProj)
+
+    username = last7days["data"]["username"]
+    toBeStored.append("username = " + username)
 
     appendToWakaconkyData(toBeStored)
 
