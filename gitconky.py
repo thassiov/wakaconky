@@ -53,11 +53,12 @@ def getAllIssues(userinfo):
     gh = getGithubIssues(userinfo["github_username"], userinfo["github_token"])
     gl = getGitlabIssues(userinfo["gitlab_token"])
 
-    print("Gitlab")
+    print("\n")
+    print(">>> Gitlab")
     for issue in gl:
         print(issue["title"])
 
-    print("\nGithub")
+    print("\n>>> Github")
     for issue in gh:
         print(issue["title"])
 
