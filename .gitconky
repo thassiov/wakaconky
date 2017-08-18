@@ -36,6 +36,7 @@ own_window_transparent = true
 
 conky.text = [[
     ${color #ffffff}${alignc}Issues
-    ${execi 20 python ./gitconky.py}
+    ${execi 20 python gitscripts/gitlab.py}
+    ${execi 20 python gitscripts/github.py}
  ]]
 
