@@ -42,6 +42,8 @@ conky.text = [[
 
     ${color #00FF00}${execibar 2 grep -w 'time_spent_today_as_percentage' ~/.wakaconky.data | cut -d '=' -f 2} ${color #ffffff} ${execi 2 grep -w 'time_spent_today_as_percentage' ~/.wakaconky.data | cut -d '=' -f 2}% | 100%
 
+    ${color #ffffff}Lang of the day: ${execi 2 grep -w 'lang_of_the_day' ~/.wakaconky.data | cut -d '=' -f 2 } 
+    ${color #ffffff}Time on lang of the day: ${execi 2 grep -w 'time_on_lang_of_the_day' ~/.wakaconky.data | cut -d '=' -f 2 } 
     _________________________________________________
 
     ${color #ffffff}Best day: ${execi 2 grep -w 'best_day' ~/.wakaconky.data | cut -d '=' -f 2 }

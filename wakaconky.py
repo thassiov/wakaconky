@@ -72,6 +72,11 @@ def getWakatimeData(token):
     percent = "{0:.2f}".format(percent)
     toBeStored.append('time_spent_today_as_percentage = ' + percent)
 
+    langOfTheDay = summary["data"][0]["languages"][0]["name"]
+    timeOnLangOfTheDay = summary["data"][0]["languages"][0]["text"]
+    toBeStored.append('lang_of_the_day = ' + langOfTheDay)
+    toBeStored.append('time_on_lang_of_the_day = ' + timeOnLangOfTheDay)
+
     last7days = getStats(token)
     bestDayInMinutes = int(last7days["data"]["best_day"]["total_seconds"])/60
     bestDayInMinutes = "{0:.2f}".format(bestDayInMinutes)
