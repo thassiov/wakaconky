@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import datetime
 import requests
 import pprint
 import os
@@ -60,10 +61,15 @@ def formatData(userinfo):
     projectIdAndName = {}
     for id in projectIds:
         p = getProject(userinfo["gitlab_token"], id)
-        projectIdAndName.update({id:p["path_with_namespace"]})
+        lastActivity = datetime.datetime.strptime(p["last_activity_at"], "%Y-%m-%dT%H:%M:%S.%fZ")
+        projectIdAndName.update({id:{"path":p["path_with_namespace"], "last_activity":lastActivity.strftime("%A, %d. %B %Y %I:%M%p")}})
 
     print("\n>>> Gitlab")
-    for issue in gl:
-        print("["+ projectIdAndName[issue["project_id"]] +"] #" + str(issue["iid"]) + " - " + issue["title"])
+    for id in projectIdAndName:
+        print("[" + projectIdAndName[id]["path"] + "] - Last activity: " + projectIdAndName[id]["last_activity"])
+        for issue in gl:
+            if issue["project_id"] == id:
+                print(" ├─ #" + str(issue["iid"]) + " - " + issue["title"])
+        print(" └─────────────────")
 
 formatData(readConfigFile())
