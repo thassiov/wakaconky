@@ -1,7 +1,7 @@
 # wakaconky
 ### wakatime and git(hub/lab) info in a conky
 
-![screenshot](assets/screenshot.57.png)
+![screenshot](assets/screenshot.57.jpg)
 
 ## How it works
 
