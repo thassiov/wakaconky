@@ -1,6 +1,8 @@
 # wakaconky
 ### wakatime and git(hub/lab) info in a conky
 
+![screenshot](assets/screenshot.57.png)
+
 ## How it works
 
 Wakaconky's goal is to show your coding information provided by Wakatime. It calls Wakatime's API for data and then prints it in your desktop via Conky.
@@ -23,7 +25,7 @@ And that's it.
 ### Under the hood
 
 The `wakaconky.py` script will read `$HOME/.wakatime.cfg` file (which was created by Wakatime's plugin) and get your access token from it.
-The information shown in your desktop will be fetched using Wakatime's API and you access token.
+The information shown in your desktop will be fetched using Wakatime's API and your access token.
 
 The `gitscripts/github.py` and `gitscripts/gitlab.py` scripts will get the credentials you provided in `$HOME/.gitconky.json` to fetch your project's issues.
 
