@@ -73,6 +73,7 @@ Go to Github's [Personal Access Tokens](https://github.com/settings/tokens)'s pa
 - better documentation
 - create python script specific for data fetching
 - create python script specific for data formating
+- make wakatime's goal an env var (it's currently hardcoded)
 
 ## CONTRIBUTIONS
 
