@@ -35,20 +35,31 @@ own_window_transparent = true
 }
 
 conky.text = [[
+    ${color #ffffff}${alignc} Wakaconky
     ${execi 20 python ~/.wakaconky/wakaconky.py}
-    ${color #ffffff}${alignc}${execi 2 grep -w 'username' ~/.wakaconky.data | cut -d '=' -f 2 }
+    ${color #ffffff}username: ${execi 2 grep -w 'username' ~/.wakaconky.data | cut -d '=' -f 2 }
 
-    ${color #ffffff}Today's code quota: ${execi 2 grep -w 'time_spent_today' ~/.wakaconky.data | cut -d '=' -f 2 } | 8 hr
-
-    ${color #00FF00}${execibar 2 grep -w 'time_spent_today_as_percentage' ~/.wakaconky.data | cut -d '=' -f 2} ${color #ffffff} ${execi 2 grep -w 'time_spent_today_as_percentage' ~/.wakaconky.data | cut -d '=' -f 2}% | 100%
+    ${color #ffffff}Today's code quota: ${execi 2 grep -w 'time_spent_today' ~/.wakaconky.data | cut -d '=' -f 2 }
 
     ${color #ffffff}Lang of the day: ${execi 2 grep -w 'lang_of_the_day' ~/.wakaconky.data | cut -d '=' -f 2 } 
     ${color #ffffff}Time on lang of the day: ${execi 2 grep -w 'time_on_lang_of_the_day' ~/.wakaconky.data | cut -d '=' -f 2 } 
+
+    ${color #ffffff}Project of the day: ${execi 2 grep -w 'project_of_the_day' ~/.wakaconky.data | cut -d '=' -f 2 } 
+    ${color #ffffff}Time on project of the day: ${execi 2 grep -w 'time_on_project_of_the_day' ~/.wakaconky.data | cut -d '=' -f 2 } 
+
     _________________________________________________
 
     ${color #ffffff}Best day: ${execi 2 grep -w 'best_day' ~/.wakaconky.data | cut -d '=' -f 2 }
     ${color #ffffff}Lang of the week: ${execi 2 grep -w 'lang_of_the_week' ~/.wakaconky.data | cut -d '=' -f 2 }
     ${color #ffffff}Project of the week: ${execi 2 grep -w 'project_of_the_week' ~/.wakaconky.data | cut -d '=' -f 2 }
+
+ ]]
+
+
+ --[[
+REMOVED (FOR NOW)
+
+    ${color #00FF00}${execibar 2 grep -w 'time_spent_today_as_percentage' ~/.wakaconky.data | cut -d '=' -f 2} ${color #ffffff} ${execi 2 grep -w 'time_spent_today_as_percentage' ~/.wakaconky.data | cut -d '=' -f 2}% | 100%
 
  ]]
 

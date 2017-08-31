@@ -71,6 +71,10 @@ def getWakatimeData(token):
     percent = minutes/(480/100) # 480 minutes = 8 hours
     percent = "{0:.2f}".format(percent)
     toBeStored.append('time_spent_today_as_percentage = ' + percent)
+    projectOfTheDay = summary["data"][0]["projects"][0]["name"]
+    timeOnProjectOfTheDay = summary["data"][0]["projects"][0]["text"]
+    toBeStored.append('project_of_the_day = ' + projectOfTheDay)
+    toBeStored.append('time_on_project_of_the_day = ' + timeOnProjectOfTheDay)
 
     if len(summary["data"][0]["languages"]) > 0:
         langOfTheDay = summary["data"][0]["languages"][0]["name"]
