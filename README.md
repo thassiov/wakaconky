@@ -69,7 +69,6 @@ Go to Github's [Personal Access Tokens](https://github.com/settings/tokens)'s pa
 ## TODO
 
 - make configuration a bit less cumbersome
-- limit number of issues shown
 - better documentation
 - create python script specific for data fetching
 - create python script specific for data formating
