@@ -67,9 +67,18 @@ def formatData(userinfo):
     print("\n>>> Gitlab")
     for id in projectIdAndName:
         print("[" + projectIdAndName[id]["path"] + "] - Last activity: " + projectIdAndName[id]["last_activity"])
+        issueCount = 0
+        # I need to show issues from 1 to 10, not from 10 to 1
+        gl.reverse()
         for issue in gl:
+            # 10 issues will be shown to save screen real state
+            # @TODO 'issueCount' must be in a config file
+            if issueCount == 10:
+                break
             if issue["project_id"] == id:
                 print(" ├─ #" + str(issue["iid"]) + " - " + issue["title"])
+                issueCount +=1
+                    
         print(" └─────────────────")
 
 formatData(readConfigFile())

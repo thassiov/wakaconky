@@ -65,9 +65,18 @@ def getAllIssues(userinfo):
     print("\n>>> Github")
     for id in projectsNamesAndUpdates:
         print("[" + projectsNamesAndUpdates[id]["path"] + "] - Last activity: " + projectsNamesAndUpdates[id]["last_activity"])
+        issueCount = 0
+        # I need to show issues from 1 to 10, not from 10 to 1
+        gh.reverse()
         for issue in gh:
+            # 10 issues will be shown to save screen real state
+            # @TODO 'issueCount' must be in a config file
+            if issueCount == 10:
+                break
             if issue["repository"]["id"] == id:
                 print(" ├─ #" + str(issue["number"]) + " - " + issue["title"])
+                issueCount +=1
+
         print(" └─────────────────")
 
 getAllIssues(readConfigFile())
