@@ -71,16 +71,15 @@ def getWakatimeData(token):
     percent = minutes/(480/100) # 480 minutes = 8 hours
     percent = "{0:.2f}".format(percent)
     toBeStored.append('time_spent_today_as_percentage = ' + percent)
-    projectOfTheDay = summary["data"][0]["projects"][0]["name"]
-    timeOnProjectOfTheDay = summary["data"][0]["projects"][0]["text"]
-    toBeStored.append('project_of_the_day = ' + projectOfTheDay)
-    toBeStored.append('time_on_project_of_the_day = ' + timeOnProjectOfTheDay)
+    toBeStored.append('project_of_the_day = ' 
+    	+ getTheFirstItem(summary["data"][0]["projects"], "name"))
+    toBeStored.append('time_on_project_of_the_day = ' 
+    	+ getTheFirstItem(summary["data"][0]["projects"], "text"))
 
-    if len(summary["data"][0]["languages"]) > 0:
-        langOfTheDay = summary["data"][0]["languages"][0]["name"]
-        timeOnLangOfTheDay = summary["data"][0]["languages"][0]["text"]
-        toBeStored.append('lang_of_the_day = ' + langOfTheDay)
-        toBeStored.append('time_on_lang_of_the_day = ' + timeOnLangOfTheDay)
+    toBeStored.append('lang_of_the_day = ' 
+        + getTheFirstItem(summary["data"][0]["languages"], "name"))
+    toBeStored.append('time_on_lang_of_the_day = ' 
+        + getTheFirstItem(summary["data"][0]["languages"], "text"))
 
     last7days = getStats(token)
     bestDayInMinutes = int(last7days["data"]["best_day"]["total_seconds"])/60
@@ -88,12 +87,12 @@ def getWakatimeData(token):
     bestDay = str(last7days["data"]["best_day"]["date"]) + ' - ' + str(bestDayInMinutes)
     toBeStored.append('best_day = ' + bestDay + ' mins')
 
-    weekLang = last7days["data"]["languages"][0]["name"]
-    weekLang += ' - ' + last7days["data"]["languages"][0]["text"]
+    weekLang = getTheFirstItem(last7days["data"]["languages"], "name")
+    weekLang += ' - ' + getTheFirstItem(last7days["data"]["languages"], "text")
     toBeStored.append("lang_of_the_week = " + weekLang)
 
-    weekProj = last7days["data"]["projects"][0]["name"]
-    weekProj += ' - ' + last7days["data"]["projects"][0]["text"]
+    weekProj = getTheFirstItem(last7days["data"]["projects"], "name")
+    weekProj += ' - ' + getTheFirstItem(last7days["data"]["projects"], "text")
     toBeStored.append("project_of_the_week = " + weekProj)
 
     username = last7days["data"]["username"]
@@ -126,6 +125,12 @@ def appendToWakaconkyData(toAppend):
         f.write('\n')
     f.close()
     return True
+
+def getTheFirstItem(l, extract):
+    if(len(l) == 0):
+        return 'There is no data yet'
+    else:
+        return l[0][extract]
 
 token = getAccessTokenFromFile()
 if token == '':
