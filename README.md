@@ -19,7 +19,7 @@ In addition to Wakatime's data, Gitlab and Github issues can be shown in your de
 
 ## Installation
 
-You can clone this repository in any directory you want. Then, you add `wakaconky/conky-init.sh` script in your startup config.
+You can clone this repository in any directory you want. Then, you add `wakaconky/conkyInit.py` script in your startup config.
 And that's it.
 
 ### Under the hood
